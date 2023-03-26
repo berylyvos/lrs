@@ -1,0 +1,2 @@
+# lrs
+learning rust

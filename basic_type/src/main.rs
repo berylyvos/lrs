@@ -32,7 +32,20 @@ fn range_emoji() {
     for i in 1..10 {
         print!("{}{} ", i, EMO)
     }
-    println!()
+    println!("\nsize of {}: {} bytes", EMO, std::mem::size_of_val(&EMO));
+}
+
+fn ret_unit_type() {
+    let x = 1;
+    // if 语句块也是一个表达式，因此可以用于赋值，也可以直接返回
+    // 类似三元运算符，在Rust里我们可以这样写
+    let _y = if x % 2 == 1 {
+        "odd"
+    } else {
+        "even"
+    };
+    // 或者写成一行
+    let _z = if x % 2 == 1 { "odd" } else { "even" };
 }
 
 fn main() {
@@ -40,4 +53,5 @@ fn main() {
     floating();
     floating_trap();
     range_emoji();
+    assert_eq!(ret_unit_type(), ());
 }

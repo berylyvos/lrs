@@ -28,6 +28,14 @@ fn copy_i32() {
     println!("px = {:?}, py = {:?}", px, py);
 }
 
+fn reference_i32() {
+   let x = 5;
+   let px = &x as *const i32;
+   let p = &x;
+
+   println!("p: {:p}, px: {:?}", p, px); // same
+}
+
 fn unmutable_reference() {
     let s1 = String::from("hello");
     let s2 = &s1;
@@ -88,6 +96,8 @@ fn main() {
     copy();
     clone();
     copy_i32();
+
+    reference_i32();
     unmutable_reference();
     mutable_reference();
     mutable_and_unmutable();

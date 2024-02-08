@@ -3,7 +3,11 @@ use std::fs::File;
 use std::io::{self, ErrorKind, Read};
 
 fn main() -> Result<(), Box<dyn Error>>{
-    let _f = File::open("aaa.txt")?;
+    let username = _read_username_from_file3().unwrap();
+    println!("{username}");
+
+    let _f = File::open("404.txt")?;
+    // Error: Os { code: 2, kind: NotFound, message: "No such file or directory" }
     Ok(())
 }
 

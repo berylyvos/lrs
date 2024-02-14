@@ -1,4 +1,5 @@
 mod closures;
+mod iterators;
 
 fn main() {
     closures::test_generate_workout();

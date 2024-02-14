@@ -84,3 +84,45 @@ fn _move_ownership_to_closure() {
         .join()
         .unwrap();
 }
+
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+static mut LIST: [Rectangle; 3] = [
+    Rectangle { width: 10, height: 1 },
+    Rectangle { width: 3, height: 5 },
+    Rectangle { width: 7, height: 12 },
+];
+
+pub fn sort_by_key_with_fnmut() {
+    unsafe {   
+        LIST.sort_by_key(|r| r.width);
+        println!("{:#?}", LIST);
+    }
+}
+
+fn _try_sort_by_key_with_fnonce() {
+    // let mut sort_operations = vec![];
+    // let value = String::from("by key called");
+    unsafe {
+        LIST.sort_by_key(|r| {
+            // sort_operations.push(value);
+            r.width
+        });
+        println!("{:#?}", LIST);
+    }
+}
+
+pub fn sort_by_key_with_fnmut_count() {
+    let mut num_sort_operations = 0;
+    unsafe {
+        LIST.sort_by_key(|r| {
+            num_sort_operations += 1; // mut ref
+            r.height
+        });
+        println!("{:#?}, sorted in {num_sort_operations} operations", LIST);
+    }
+}

@@ -4,6 +4,8 @@ mod drop;
 mod rc_t;
 mod refcell_t;
 mod rc_refcell_t;
+mod cycle_ref;
+mod weak_t;
 
 fn main() {
     box_t::point_to_recursive_type();
@@ -13,4 +15,6 @@ fn main() {
     rc_t::test_refrence_counted_smart_pointer();
     refcell_t::it_sends_an_over_75_percent_warning_message();
     rc_refcell_t::test_rc_refcell_list();
+    cycle_ref::test_cycle_reference();
+    weak_t::test_weak_reference();
 }

@@ -2,6 +2,7 @@ mod _unsafe;
 mod adv_trait;
 mod adv_type;
 mod adv_fn_closure;
+mod macros;
 
 fn main() {
     _unsafe::test_split_at_mut();

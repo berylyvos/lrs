@@ -1,16 +1,22 @@
 use std::{
-    fs, 
+    fs,
     io::{BufRead, BufReader, Write}, 
-    net::{TcpListener, TcpStream}
+    net::{TcpListener, TcpStream}, 
+    thread, 
+    time::Duration,
 };
+use hello::ThreadPool;
 
 fn main() {
     let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
+    let pool = ThreadPool::new(4);
 
     for stream in listener.incoming() {
         let stream = stream.unwrap();
 
-        handle_connection(stream);
+        pool.execute(|| {
+            handle_connection(stream);
+        });
     }
 }
 
@@ -36,8 +42,12 @@ fn handle_connection(mut stream: TcpStream) {
     // println!("Request: {:#?}", http_request);
     
     let get = "GET / HTTP/1.1";
+    let sleep = "GET /sleep HTTP/1.1";
 
     let (status_line, filename) = if request_line.starts_with(get) {
+        ("HTTP/1.1 200 OK", "hello.html")
+    } else if request_line.starts_with(sleep) {
+        thread::sleep(Duration::from_secs(5));
         ("HTTP/1.1 200 OK", "hello.html")
     } else {
         ("HTTP/1.1 400 NOT FOUND", "404.html")
